@@ -1,0 +1,41 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: rentboat-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: rentboat
+    ports:
+      - "5433:5432"  # 5433 on host to avoid conflict with local Postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: rentboat-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./app:/app
+      - /app/node_modules
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/rentboat
+      DIRECT_URL: postgresql://postgres:postgres@postgres:5432/rentboat
+      NEXT_PUBLIC_APP_URL: http://localhost:3000
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: sh -c "npx prisma db push && npx prisma db seed && npm run dev:docker"
+
+volumes:
+  postgres_data:
