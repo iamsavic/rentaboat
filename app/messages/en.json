@@ -1,0 +1,165 @@
+{
+  "nav": {
+    "tours": "Our Tours",
+    "destinations": "Destinations",
+    "faq": "FAQ",
+    "about": "About",
+    "contact": "Contact",
+    "bookNow": "Book Now"
+  },
+  "hero": {
+    "title": "Explore Budva from the Sea",
+    "subtitle": "Speedboat tours for up to 7 people. Skipper, fuel & welcome drink included. Book in 2 minutes.",
+    "ctaTours": "View Tours",
+    "ctaBook": "Book Now"
+  },
+  "included": {
+    "title": "Always Included",
+    "skipper": "Skipper",
+    "fuel": "Fuel",
+    "water": "Welcome Drink",
+    "swimming": "Swimming Stops"
+  },
+  "howItWorks": {
+    "title": "How It Works",
+    "step1Title": "Choose a Tour",
+    "step1Desc": "Browse our 4 packages and pick the one that fits your day.",
+    "step2Title": "Send Your Request",
+    "step2Desc": "Fill in the form with your date, time and contact details.",
+    "step3Title": "Come to the Marina",
+    "step3Desc": "We'll confirm your booking. Pay cash at Budva Marina. All aboard!"
+  },
+  "destinations": {
+    "title": "Destinations",
+    "subtitle": "Every tour includes stops at some of the most beautiful spots on the Montenegrin coast.",
+    "viewTour": "See which tour includes this",
+    "includedIn": "Included in"
+  },
+  "testimonials": {
+    "title": "What Our Guests Say"
+  },
+  "faqPreview": {
+    "title": "Frequently Asked Questions",
+    "viewAll": "View all questions"
+  },
+  "cta": {
+    "title": "Ready for an unforgettable day on the water?",
+    "subtitle": "Book your speedboat tour today. Skipper, fuel and welcome drink always included.",
+    "button": "Book Your Tour"
+  },
+  "tours": {
+    "title": "Our Tours",
+    "subtitle": "Choose the perfect tour for your day on the water.",
+    "from": "from",
+    "duration": "Duration",
+    "capacity": "Up to {count} people",
+    "included": "Always included",
+    "viewDetails": "View Details",
+    "bookNow": "Book Now",
+    "destinations": "Destinations",
+    "perTrip": "per trip",
+    "bookThisTour": "Book This Tour",
+    "departure": "Departure: Budva Marina",
+    "allInclusive": "Skipper · Fuel · Welcome Drink · Swimming Stops"
+  },
+  "availability": {
+    "selectDate": "Select a date",
+    "selectTime": "Select departure time",
+    "available": "Available",
+    "unavailable": "Unavailable",
+    "noSlots": "No available time slots for this date.",
+    "persons": "Number of passengers",
+    "maxCapacity": "Maximum {count} passengers"
+  },
+  "booking": {
+    "title": "Book Your Tour",
+    "step1": "Select Time",
+    "step2": "Your Details",
+    "step3": "Review",
+    "step4": "Confirmed",
+    "summary": "Booking Summary",
+    "tour": "Tour",
+    "date": "Date",
+    "time": "Departure",
+    "duration": "Duration",
+    "persons": "Passengers",
+    "totalPrice": "Total",
+    "paymentNote": "Payment: cash at Budva Marina",
+    "depositNote": "This tour requires a deposit of {amount} payable in cash on arrival.",
+    "continue": "Continue",
+    "back": "Back",
+    "sendRequest": "Send Booking Request",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "country": "Country",
+    "notes": "Special Notes (optional)",
+    "acceptTerms": "I accept the Terms of Service",
+    "acceptPrivacy": "I agree to the Privacy Policy",
+    "acceptMarketing": "I'd like to receive promotional offers",
+    "required": "This field is required",
+    "invalidEmail": "Please enter a valid email address",
+    "invalidPhone": "Please enter a valid phone number"
+  },
+  "confirmation": {
+    "title": "Booking Request Received!",
+    "subtitle": "Thank you, {name}! We'll confirm your booking shortly.",
+    "reference": "Booking Reference",
+    "emailSent": "A confirmation email has been sent to {email}",
+    "preArrival": "Before You Arrive",
+    "location": "Location",
+    "timing": "Please arrive 10 minutes before departure",
+    "bringItems": "What to bring",
+    "bringList": "Valid ID or passport, Cash for payment, Swimwear & towel, Sunscreen",
+    "contact": "Need help? Contact us",
+    "backHome": "Back to Home",
+    "viewTours": "View Other Tours"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "categories": {
+      "tours": "About Tours",
+      "booking": "Booking & Payment",
+      "arrival": "On the Day",
+      "weather": "Weather"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "phone": "Phone",
+    "email": "Email",
+    "whatsapp": "WhatsApp",
+    "address": "Address",
+    "hours": "Working Hours",
+    "formTitle": "Send Us a Message",
+    "name": "Name",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send Message",
+    "success": "Message sent! We'll get back to you soon.",
+    "subjects": {
+      "tour": "Question about a tour",
+      "booking": "Booking enquiry",
+      "cancellation": "Cancellation",
+      "other": "Other"
+    }
+  },
+  "about": {
+    "title": "About Us"
+  },
+  "footer": {
+    "tagline": "Speedboat tours from Budva Marina",
+    "navigation": "Navigation",
+    "legal": "Legal",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "cookies": "Cookie Policy",
+    "rights": "All rights reserved."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong. Please try again.",
+    "notFound": "Page not found"
+  }
+}

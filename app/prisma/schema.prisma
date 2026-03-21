@@ -1,0 +1,155 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Location {
+  id               String   @id @default(cuid())
+  name             String
+  address          String
+  googleMapsUrl    String
+  whatsappNumber   String
+  contactPhone     String
+  workingHours     Json
+  createdAt        DateTime @default(now())
+  vessels          Vessel[]
+}
+
+model Owner {
+  id                 String   @id @default(cuid())
+  name               String
+  contactEmail       String
+  contactPhone       String?
+  commissionPercent  Decimal  @default(0) @db.Decimal(5, 2)
+  active             Boolean  @default(true)
+  createdAt          DateTime @default(now())
+  vessels            Vessel[]
+}
+
+model Vessel {
+  id          String      @id @default(cuid())
+  name        String
+  slug        String      @unique
+  vesselType  VesselType  @default(SPEEDBOAT)
+  capacity    Int
+  description String?
+  coverImage  String?
+  gallery     String[]    @default([])
+  locationId  String
+  ownerId     String
+  ownerType   OwnerType   @default(OWN)
+  active      Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  location      Location       @relation(fields: [locationId], references: [id])
+  owner         Owner          @relation(fields: [ownerId], references: [id])
+  tours         Tour[]
+  availability  Availability[]
+}
+
+model Tour {
+  id                      String   @id @default(cuid())
+  nameSr                  String
+  nameEn                  String
+  slugSr                  String   @unique
+  slugEn                  String   @unique
+  vesselId                String
+  durationHours           Decimal  @db.Decimal(4, 2)
+  priceEur                Decimal  @db.Decimal(10, 2)
+  fixedPrice              Boolean  @default(false)
+  requiresDeposit         Boolean  @default(false)
+  depositAmount           Decimal? @db.Decimal(10, 2)
+  descriptionSr           String
+  descriptionEn           String
+  destinationsSr          String[]
+  destinationsEn          String[]
+  coverImage              String?
+  gallery                 String[] @default([])
+  active                  Boolean  @default(true)
+  sortOrder               Int      @default(0)
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  vessel    Vessel    @relation(fields: [vesselId], references: [id])
+  bookings  Booking[]
+}
+
+model Booking {
+  id               String        @id @default(cuid())
+  bookingReference String        @unique
+  tourId           String
+  vesselId         String
+  firstName        String
+  lastName         String
+  email            String
+  phone            String
+  country          String
+  date             DateTime      @db.Date
+  startTime        String
+  persons          Int
+  totalPrice       Decimal       @db.Decimal(10, 2)
+  requiresDeposit  Boolean       @default(false)
+  depositAmount    Decimal?      @db.Decimal(10, 2)
+  depositPaid      Boolean       @default(false)
+  language         Language      @default(EN)
+  bookingStatus    BookingStatus @default(NEW)
+  notes            String?
+  adminNotes       String?
+  lockExpiresAt    DateTime?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  tour Tour @relation(fields: [tourId], references: [id])
+}
+
+model Availability {
+  id          String   @id @default(cuid())
+  vesselId    String
+  date        DateTime @db.Date
+  blockedFrom String?
+  blockedTo   String?
+  reason      String?
+  createdAt   DateTime @default(now())
+
+  vessel Vessel @relation(fields: [vesselId], references: [id])
+
+  @@index([vesselId, date])
+}
+
+model AdminSession {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+enum VesselType {
+  SPEEDBOAT
+  YACHT
+  BOAT
+}
+
+enum OwnerType {
+  OWN
+  PARTNER
+}
+
+enum BookingStatus {
+  NEW
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+  NO_SHOW
+}
+
+enum Language {
+  EN
+  SR
+}

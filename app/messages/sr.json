@@ -1,0 +1,165 @@
+{
+  "nav": {
+    "tours": "Naše ture",
+    "destinations": "Destinacije",
+    "faq": "FAQ",
+    "about": "O nama",
+    "contact": "Kontakt",
+    "bookNow": "Rezerviši"
+  },
+  "hero": {
+    "title": "Istraži Budvu s mora",
+    "subtitle": "Speedboat ture za do 7 osoba. Skipper, gorivo i voda dobrodošlice uvek uključeni. Rezerviši za 2 minuta.",
+    "ctaTours": "Pogledaj ture",
+    "ctaBook": "Rezerviši odmah"
+  },
+  "included": {
+    "title": "Uvek uključeno",
+    "skipper": "Skipper",
+    "fuel": "Gorivo",
+    "water": "Voda dobrodošlice",
+    "swimming": "Zaustavljanja za plivanje"
+  },
+  "howItWorks": {
+    "title": "Kako funkcioniše",
+    "step1Title": "Izaberi turu",
+    "step1Desc": "Pregledaj naša 4 paketa i izaberi onaj koji odgovara tvom danu.",
+    "step2Title": "Pošalji zahtev",
+    "step2Desc": "Popuni formu sa datumom, vremenom i kontakt podacima.",
+    "step3Title": "Dođi na marinu",
+    "step3Desc": "Potvrđujemo rezervaciju. Plaćanje keš na Budva Marini. Krenimo!"
+  },
+  "destinations": {
+    "title": "Destinacije",
+    "subtitle": "Svaka tura uključuje zaustavljanja na najlepšim tačkama crnogorskog primorja.",
+    "viewTour": "Pogledaj koje ture uključuju ovo mesto",
+    "includedIn": "Uključeno u"
+  },
+  "testimonials": {
+    "title": "Šta kažu naši gosti"
+  },
+  "faqPreview": {
+    "title": "Najčešća pitanja",
+    "viewAll": "Pogledaj sva pitanja"
+  },
+  "cta": {
+    "title": "Spreman/na za nezaboravan dan na vodi?",
+    "subtitle": "Rezerviši svoju speedboat turu danas. Skipper, gorivo i voda uvek uključeni.",
+    "button": "Rezerviši turu"
+  },
+  "tours": {
+    "title": "Naše ture",
+    "subtitle": "Izaberi idealnu turu za tvoj dan na vodi.",
+    "from": "od",
+    "duration": "Trajanje",
+    "capacity": "Do {count} osoba",
+    "included": "Uvek uključeno",
+    "viewDetails": "Pogledaj detalje",
+    "bookNow": "Rezerviši",
+    "destinations": "Destinacije",
+    "perTrip": "po turi",
+    "bookThisTour": "Rezerviši ovu turu",
+    "departure": "Polazak: Budva Marina",
+    "allInclusive": "Skipper · Gorivo · Voda dobrodošlice · Zaustavljanja za plivanje"
+  },
+  "availability": {
+    "selectDate": "Izaberi datum",
+    "selectTime": "Izaberi vreme polaska",
+    "available": "Dostupno",
+    "unavailable": "Zauzeto",
+    "noSlots": "Nema dostupnih termina za ovaj datum.",
+    "persons": "Broj putnika",
+    "maxCapacity": "Maksimalno {count} putnika"
+  },
+  "booking": {
+    "title": "Rezerviši turu",
+    "step1": "Izaberi termin",
+    "step2": "Tvoji podaci",
+    "step3": "Pregled",
+    "step4": "Potvrda",
+    "summary": "Pregled rezervacije",
+    "tour": "Tura",
+    "date": "Datum",
+    "time": "Polazak",
+    "duration": "Trajanje",
+    "persons": "Putnici",
+    "totalPrice": "Ukupno",
+    "paymentNote": "Plaćanje: keš na Budva Marini",
+    "depositNote": "Ova tura zahteva depozit od {amount} koji se plaća keš pri dolasku.",
+    "continue": "Nastavi",
+    "back": "Nazad",
+    "sendRequest": "Pošalji zahtev za rezervaciju",
+    "firstName": "Ime",
+    "lastName": "Prezime",
+    "email": "Email",
+    "phone": "Telefon",
+    "country": "Država",
+    "notes": "Posebne napomene (opciono)",
+    "acceptTerms": "Prihvatam uslove korišćenja",
+    "acceptPrivacy": "Saglasan/na sam sa politikom privatnosti",
+    "acceptMarketing": "Želim da primam promotivne ponude",
+    "required": "Ovo polje je obavezno",
+    "invalidEmail": "Unesite ispravnu email adresu",
+    "invalidPhone": "Unesite ispravan broj telefona"
+  },
+  "confirmation": {
+    "title": "Zahtev za rezervaciju primljen!",
+    "subtitle": "Hvala, {name}! Uskoro ćemo potvrditi vašu rezervaciju.",
+    "reference": "Broj rezervacije",
+    "emailSent": "Email potvrda je poslata na {email}",
+    "preArrival": "Pre dolaska",
+    "location": "Lokacija",
+    "timing": "Molimo budite na lokaciji 10 minuta pre polaska",
+    "bringItems": "Šta poneti",
+    "bringList": "Lična karta ili pasoš, Novac za plaćanje, Kupaći i peškir, Krema za sunce",
+    "contact": "Potrebna pomoć? Kontaktirajte nas",
+    "backHome": "Vrati se na početnu",
+    "viewTours": "Pogledaj ostale ture"
+  },
+  "faq": {
+    "title": "Najčešća pitanja",
+    "categories": {
+      "tours": "O turama",
+      "booking": "Rezervacija i plaćanje",
+      "arrival": "Na dan ture",
+      "weather": "Vremenski uslovi"
+    }
+  },
+  "contact": {
+    "title": "Kontakt",
+    "phone": "Telefon",
+    "email": "Email",
+    "whatsapp": "WhatsApp",
+    "address": "Adresa",
+    "hours": "Radno vreme",
+    "formTitle": "Pošalji nam poruku",
+    "name": "Ime",
+    "subject": "Tema",
+    "message": "Poruka",
+    "send": "Pošalji poruku",
+    "success": "Poruka je poslata! Odgovorićemo uskoro.",
+    "subjects": {
+      "tour": "Pitanje o turi",
+      "booking": "Rezervacija",
+      "cancellation": "Otkazivanje",
+      "other": "Ostalo"
+    }
+  },
+  "about": {
+    "title": "O nama"
+  },
+  "footer": {
+    "tagline": "Speedboat ture sa Budva Marine",
+    "navigation": "Navigacija",
+    "legal": "Pravno",
+    "terms": "Uslovi korišćenja",
+    "privacy": "Politika privatnosti",
+    "cookies": "Politika kolačića",
+    "rights": "Sva prava zadržana."
+  },
+  "common": {
+    "loading": "Učitavanje...",
+    "error": "Došlo je do greške. Pokušajte ponovo.",
+    "notFound": "Stranica nije pronađena"
+  }
+}
