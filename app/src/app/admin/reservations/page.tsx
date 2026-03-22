@@ -47,11 +47,11 @@ export default async function ReservationsPage({ searchParams }: Props) {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-slate-800 mb-6">Rezervacije</h1>
+      <h1 className="text-xl md:text-2xl font-bold text-slate-800 mb-4 md:mb-6">Rezervacije</h1>
 
       {/* Filters */}
-      <div className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 mb-5 flex flex-wrap gap-3">
-        <form className="flex-1 min-w-48">
+      <div className="bg-white rounded-2xl p-3 md:p-4 shadow-sm border border-slate-100 mb-4 md:mb-5 flex flex-col gap-3">
+        <form>
           <input
             name="q"
             defaultValue={sp.q}
@@ -80,56 +80,84 @@ export default async function ReservationsPage({ searchParams }: Props) {
         </div>
       </div>
 
-      {/* Table */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-        {bookings.length > 0 ? (
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="bg-slate-50 border-b border-slate-100">
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Ref</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Gost</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Tura</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Datum</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Osobe</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Cena</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-50">
-                {bookings.map((b: typeof bookings[number]) => (
-                  <tr key={b.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-4 py-3">
-                      <Link href={`/admin/reservations/${b.id}`} className="font-mono text-xs text-sky-600 hover:underline">
-                        {b.bookingReference}
-                      </Link>
-                    </td>
-                    <td className="px-4 py-3">
-                      <p className="text-sm font-medium text-slate-800">{b.firstName} {b.lastName}</p>
-                      <p className="text-xs text-slate-400">{b.email}</p>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-slate-600">{b.tour.nameSr}</td>
-                    <td className="px-4 py-3 text-sm text-slate-600">
-                      {b.date.toISOString().split("T")[0]} {b.startTime}
-                    </td>
-                    <td className="px-4 py-3 text-sm text-center text-slate-600">{b.persons}</td>
-                    <td className="px-4 py-3 text-sm font-semibold text-slate-700">€{Number(b.totalPrice)}</td>
-                    <td className="px-4 py-3">
-                      <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${statusColors[b.bookingStatus] || ""}`}>
-                        {b.bookingStatus}
-                      </span>
-                    </td>
+      {bookings.length > 0 ? (
+        <>
+          {/* Mobile card list */}
+          <div className="md:hidden space-y-3">
+            {bookings.map((b: typeof bookings[number]) => (
+              <Link
+                key={b.id}
+                href={`/admin/reservations/${b.id}`}
+                className="block bg-white rounded-2xl shadow-sm border border-slate-100 p-4"
+              >
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <div>
+                    <p className="font-semibold text-slate-800 text-sm">{b.firstName} {b.lastName}</p>
+                    <p className="text-xs text-slate-400 font-mono mt-0.5">{b.bookingReference}</p>
+                  </div>
+                  <span className={`text-xs font-medium px-2.5 py-1 rounded-full flex-shrink-0 ${statusColors[b.bookingStatus] || ""}`}>
+                    {b.bookingStatus}
+                  </span>
+                </div>
+                <p className="text-sm text-slate-600 mb-1">{b.tour.nameSr}</p>
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span>{b.date.toISOString().split("T")[0]} u {b.startTime} · {b.persons} os.</span>
+                  <span className="font-semibold text-slate-700 text-sm">€{Number(b.totalPrice)}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Desktop table */}
+          <div className="hidden md:block bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="bg-slate-50 border-b border-slate-100">
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Ref</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Gost</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Tura</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Datum</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Osobe</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Cena</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Status</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-slate-50">
+                  {bookings.map((b: typeof bookings[number]) => (
+                    <tr key={b.id} className="hover:bg-slate-50 transition-colors">
+                      <td className="px-4 py-3">
+                        <Link href={`/admin/reservations/${b.id}`} className="font-mono text-xs text-sky-600 hover:underline">
+                          {b.bookingReference}
+                        </Link>
+                      </td>
+                      <td className="px-4 py-3">
+                        <p className="text-sm font-medium text-slate-800">{b.firstName} {b.lastName}</p>
+                        <p className="text-xs text-slate-400">{b.email}</p>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-slate-600">{b.tour.nameSr}</td>
+                      <td className="px-4 py-3 text-sm text-slate-600">
+                        {b.date.toISOString().split("T")[0]} {b.startTime}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-center text-slate-600">{b.persons}</td>
+                      <td className="px-4 py-3 text-sm font-semibold text-slate-700">€{Number(b.totalPrice)}</td>
+                      <td className="px-4 py-3">
+                        <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${statusColors[b.bookingStatus] || ""}`}>
+                          {b.bookingStatus}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        ) : (
-          <div className="py-16 text-center text-slate-400 text-sm">
-            Nema rezervacija.
-          </div>
-        )}
-      </div>
+        </>
+      ) : (
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-100 py-16 text-center text-slate-400 text-sm">
+          Nema rezervacija.
+        </div>
+      )}
     </div>
   );
 }

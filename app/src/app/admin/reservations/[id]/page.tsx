@@ -4,6 +4,8 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import StatusUpdater from "@/components/admin/StatusUpdater";
 
+export const dynamic = "force-dynamic";
+
 type Props = { params: Promise<{ id: string }> };
 
 export default async function ReservationDetailPage({ params }: Props) {
@@ -38,7 +40,7 @@ export default async function ReservationDetailPage({ params }: Props) {
 
   return (
     <div className="max-w-2xl">
-      <div className="flex items-center gap-3 mb-6">
+      <div className="flex items-center gap-3 mb-4 md:mb-6">
         <Link
           href="/admin/reservations"
           className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700"
@@ -47,33 +49,32 @@ export default async function ReservationDetailPage({ params }: Props) {
           Rezervacije
         </Link>
         <span className="text-slate-300">/</span>
-        <span className="text-sm text-slate-700 font-mono">{booking.bookingReference}</span>
+        <span className="text-sm text-slate-700 font-mono truncate">{booking.bookingReference}</span>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-5">
-        <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-4 md:mb-5">
+        <div className="px-4 md:px-5 py-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center gap-3 sm:justify-between">
           <h1 className="font-bold text-slate-800 text-lg">{booking.firstName} {booking.lastName}</h1>
           <StatusUpdater bookingId={booking.id} currentStatus={booking.bookingStatus} />
         </div>
 
         <div className="divide-y divide-slate-50">
           {rows.map((row) => (
-            <div key={row.label} className="flex justify-between px-5 py-3 text-sm">
-              <span className="text-slate-500 w-40 flex-shrink-0">{row.label}</span>
-              <span className="font-medium text-slate-800 text-right">{row.value}</span>
+            <div key={row.label} className="flex flex-col sm:flex-row sm:justify-between px-4 md:px-5 py-3 text-sm gap-0.5 sm:gap-0">
+              <span className="text-slate-400 text-xs sm:text-sm sm:w-40 flex-shrink-0">{row.label}</span>
+              <span className="font-medium text-slate-800 sm:text-right break-all">{row.value}</span>
             </div>
           ))}
           {booking.notes && (
-            <div className="px-5 py-3 text-sm">
-              <span className="text-slate-500 block mb-1">Napomene gosta</span>
+            <div className="px-4 md:px-5 py-3 text-sm">
+              <span className="text-slate-400 block mb-1 text-xs sm:text-sm">Napomene gosta</span>
               <span className="text-slate-700">{booking.notes}</span>
             </div>
           )}
         </div>
       </div>
 
-      {/* Admin notes */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-5">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 md:p-5">
         <h2 className="font-semibold text-slate-700 text-sm mb-3">Interne napomene</h2>
         <p className="text-slate-400 text-sm italic">
           {booking.adminNotes || "Nema internih napomena."}

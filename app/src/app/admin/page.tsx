@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/prisma";
+import Link from "next/link";
+import { ListChecks, Clock, CheckCircle2, XCircle } from "lucide-react";
 
 export const dynamic = "force-dynamic";
-import Link from "next/link";
-import { ListChecks, Clock, CheckCircle2, XCircle, Ship } from "lucide-react";
 
 async function getStats() {
   try {
@@ -38,38 +38,35 @@ export default async function AdminDashboard() {
   const stats = await getStats();
 
   const cards = [
-    { label: "Ukupno rezervacija", value: stats.total, icon: ListChecks, color: "text-sky-600" },
-    { label: "Nove (čekaju)", value: stats.newCount, icon: Clock, color: "text-amber-600" },
+    { label: "Ukupno", value: stats.total, icon: ListChecks, color: "text-sky-600" },
+    { label: "Nove", value: stats.newCount, icon: Clock, color: "text-amber-600" },
     { label: "Potvrđene", value: stats.confirmed, icon: CheckCircle2, color: "text-green-600" },
     { label: "Otkazane", value: stats.cancelled, icon: XCircle, color: "text-red-600" },
   ];
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-slate-800">Pregled</h1>
-        <Link
-          href="/admin/reservations"
-          className="text-sm text-sky-600 hover:text-sky-700 font-medium"
-        >
+      <div className="flex items-center justify-between mb-4 md:mb-6">
+        <h1 className="text-xl md:text-2xl font-bold text-slate-800">Pregled</h1>
+        <Link href="/admin/reservations" className="text-sm text-sky-600 hover:text-sky-700 font-medium">
           Sve rezervacije →
         </Link>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
         {cards.map((card) => (
-          <div key={card.label} className="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
-            <card.icon className={`h-6 w-6 ${card.color} mb-3`} />
-            <div className="text-3xl font-bold text-slate-800 mb-1">{card.value}</div>
-            <div className="text-sm text-slate-500">{card.label}</div>
+          <div key={card.label} className="bg-white rounded-2xl p-4 md:p-5 shadow-sm border border-slate-100">
+            <card.icon className={`h-5 w-5 md:h-6 md:w-6 ${card.color} mb-2 md:mb-3`} />
+            <div className="text-2xl md:text-3xl font-bold text-slate-800 mb-0.5">{card.value}</div>
+            <div className="text-xs md:text-sm text-slate-500">{card.label}</div>
           </div>
         ))}
       </div>
 
       {/* Recent bookings */}
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100">
-        <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+        <div className="px-4 md:px-5 py-4 border-b border-slate-100 flex items-center justify-between">
           <h2 className="font-bold text-slate-800">Poslednje rezervacije</h2>
           <Link href="/admin/reservations" className="text-sm text-sky-600">Vidi sve</Link>
         </div>
@@ -79,19 +76,19 @@ export default async function AdminDashboard() {
               <Link
                 key={booking.id}
                 href={`/admin/reservations/${booking.id}`}
-                className="flex items-center justify-between px-5 py-4 hover:bg-slate-50 transition-colors"
+                className="flex items-center justify-between px-4 md:px-5 py-3 md:py-4 hover:bg-slate-50 transition-colors gap-2"
               >
-                <div>
-                  <p className="font-medium text-slate-800 text-sm">
+                <div className="min-w-0">
+                  <p className="font-medium text-slate-800 text-sm truncate">
                     {booking.firstName} {booking.lastName}
                   </p>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-slate-400 truncate">
                     {booking.tour.nameSr} · {booking.date.toISOString().split("T")[0]} u {booking.startTime}
                   </p>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 flex-shrink-0">
                   <span className="font-semibold text-slate-700 text-sm">€{Number(booking.totalPrice)}</span>
-                  <span className={`text-xs font-medium px-2 py-1 rounded-full ${statusColors[booking.bookingStatus] || ""}`}>
+                  <span className={`text-xs font-medium px-2 py-1 rounded-full hidden sm:inline ${statusColors[booking.bookingStatus] || ""}`}>
                     {booking.bookingStatus}
                   </span>
                 </div>
