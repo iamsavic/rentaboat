@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { format } from "date-fns";
 
+export const dynamic = "force-dynamic";
+
 const statusColors: Record<string, string> = {
   NEW: "bg-sky-100 text-sky-700",
   PENDING: "bg-amber-100 text-amber-700",

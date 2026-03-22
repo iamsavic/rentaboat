@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { formatPrice, formatDuration } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 async function getTours() {
   try {
     return await prisma.tour.findMany({

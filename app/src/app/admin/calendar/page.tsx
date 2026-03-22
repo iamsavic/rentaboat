@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import CalendarBlocker from "@/components/admin/CalendarBlocker";
 
+export const dynamic = "force-dynamic";
+
 async function getVessels() {
   try {
     return await prisma.vessel.findMany({ where: { active: true } });
