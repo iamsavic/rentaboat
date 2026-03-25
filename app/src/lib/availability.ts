@@ -1,5 +1,5 @@
 import { prisma } from "./prisma";
-import { format, parse, addMinutes } from "date-fns";
+import { addMinutes } from "date-fns";
 
 const WORKING_START = "08:00";
 const WORKING_END = "20:00";
@@ -20,12 +20,19 @@ export async function getAvailableSlots(
   vesselId: string,
   dateStr: string,
   durationHours: number
-): Promise<Array<{ time: string; available: boolean }>> {
+): Promise<Array<{ time: string; available: boolean; concurrentCount: number; maxConcurrent: number }>> {
   const durationMinutes = durationHours * 60;
   const startMinutes = timeToMinutes(WORKING_START);
   const endMinutes = timeToMinutes(WORKING_END);
 
-  // Get all confirmed/pending bookings for this vessel on this date
+  // Get vessel to know the concurrent booking limit
+  const vessel = await prisma.vessel.findUnique({
+    where: { id: vesselId },
+    select: { maxConcurrentBookings: true },
+  });
+  const maxConcurrent = vessel?.maxConcurrentBookings ?? 2;
+
+  // Get all active bookings for this vessel on this date
   const date = new Date(dateStr + "T00:00:00.000Z");
   const bookings = await prisma.booking.findMany({
     where: {
@@ -41,8 +48,7 @@ export async function getAvailableSlots(
     where: { vesselId, date },
   });
 
-  // Generate all possible start times (every 30 min)
-  const slots: Array<{ time: string; available: boolean }> = [];
+  const slots: Array<{ time: string; available: boolean; concurrentCount: number; maxConcurrent: number }> = [];
 
   for (
     let t = startMinutes;
@@ -51,24 +57,24 @@ export async function getAvailableSlots(
   ) {
     const slotStart = t;
     const slotEnd = t + durationMinutes;
-    let available = true;
 
-    // Check existing bookings
+    // Count how many active bookings overlap with this slot (including buffer)
+    let concurrentCount = 0;
     for (const booking of bookings) {
       const bookedStart = timeToMinutes(booking.startTime);
       const bookedEnd = bookedStart + durationMinutes + BUFFER_MINUTES;
-      // Overlap check with buffer
       if (slotStart < bookedEnd && slotEnd + BUFFER_MINUTES > bookedStart) {
-        available = false;
-        break;
+        concurrentCount++;
       }
     }
 
-    // Check admin blocks
+    // Slot is available only if concurrent count is below the vessel's limit
+    let available = concurrentCount < maxConcurrent;
+
+    // Check admin blocks (full day or time range)
     if (available) {
       for (const block of blocks) {
         if (!block.blockedFrom && !block.blockedTo) {
-          // Full day block
           available = false;
           break;
         }
@@ -83,7 +89,7 @@ export async function getAvailableSlots(
       }
     }
 
-    slots.push({ time: minutesToTime(slotStart), available });
+    slots.push({ time: minutesToTime(slotStart), available, concurrentCount, maxConcurrent });
   }
 
   return slots;

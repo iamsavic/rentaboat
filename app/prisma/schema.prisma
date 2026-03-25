@@ -43,9 +43,10 @@ model Vessel {
   locationId  String
   ownerId     String
   ownerType   OwnerType   @default(OWN)
-  active      Boolean     @default(true)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  active                Boolean  @default(true)
+  maxConcurrentBookings Int      @default(2)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
 
   location      Location       @relation(fields: [locationId], references: [id])
   owner         Owner          @relation(fields: [ownerId], references: [id])

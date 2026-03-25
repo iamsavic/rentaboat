@@ -43,7 +43,7 @@ async function main() {
   // Vessel
   const vessel = await prisma.vessel.upsert({
     where: { slug: "speedboat-budva" },
-    update: {},
+    update: { maxConcurrentBookings: 2 },
     create: {
       name: "Speedboat Budva",
       slug: "speedboat-budva",
@@ -54,6 +54,7 @@ async function main() {
       ownerId: owner.id,
       ownerType: "OWN",
       active: true,
+      maxConcurrentBookings: 2,
     },
   });
 
