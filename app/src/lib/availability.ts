@@ -1,5 +1,4 @@
 import { prisma } from "./prisma";
-import { addMinutes } from "date-fns";
 
 const WORKING_START = "08:00";
 const WORKING_END = "20:00";
@@ -14,6 +13,11 @@ function minutesToTime(minutes: number): string {
   const h = Math.floor(minutes / 60);
   const m = minutes % 60;
   return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+}
+
+function currentTimeMinutes(): number {
+  const now = new Date();
+  return now.getUTCHours() * 60 + now.getUTCMinutes();
 }
 
 export async function getAvailableSlots(
@@ -32,7 +36,12 @@ export async function getAvailableSlots(
   });
   const maxConcurrent = vessel?.maxConcurrentBookings ?? 2;
 
-  // Get all active bookings for this vessel on this date (including each booking's own duration)
+  // Determine if we're checking today's date (to skip already-finished tours)
+  const todayStr = new Date().toISOString().split("T")[0];
+  const isToday = dateStr === todayStr;
+  const nowMinutes = isToday ? currentTimeMinutes() : 0;
+
+  // Get all active bookings for this vessel on this date (with each booking's own duration)
   const date = new Date(dateStr + "T00:00:00.000Z");
   const bookings = await prisma.booking.findMany({
     where: {
@@ -61,13 +70,20 @@ export async function getAvailableSlots(
     const slotStart = t;
     const slotEnd = t + durationMinutes;
 
-    // Count how many active bookings overlap with this slot (using each booking's own duration)
+    // Count how many active bookings overlap with this slot
     let concurrentCount = 0;
     for (const booking of bookings) {
       const bookedStart = timeToMinutes(booking.startTime);
       const bookedDuration = Number(booking.tour.durationHours) * 60;
-      const bookedEnd = bookedStart + bookedDuration + BUFFER_MINUTES;
-      if (slotStart < bookedEnd && slotEnd + BUFFER_MINUTES > bookedStart) {
+      const bookedEnd = bookedStart + bookedDuration;
+
+      // Skip bookings whose tour has already physically ended (tour end + buffer <= now)
+      // This handles cases where admin hasn't yet updated status to COMPLETED
+      if (isToday && bookedEnd + BUFFER_MINUTES <= nowMinutes) {
+        continue;
+      }
+
+      if (slotStart < bookedEnd + BUFFER_MINUTES && slotEnd + BUFFER_MINUTES > bookedStart) {
         concurrentCount++;
       }
     }
