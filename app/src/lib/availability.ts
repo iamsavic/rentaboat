@@ -32,7 +32,7 @@ export async function getAvailableSlots(
   });
   const maxConcurrent = vessel?.maxConcurrentBookings ?? 2;
 
-  // Get all active bookings for this vessel on this date
+  // Get all active bookings for this vessel on this date (including each booking's own duration)
   const date = new Date(dateStr + "T00:00:00.000Z");
   const bookings = await prisma.booking.findMany({
     where: {
@@ -40,7 +40,10 @@ export async function getAvailableSlots(
       date,
       bookingStatus: { in: ["NEW", "PENDING", "CONFIRMED"] },
     },
-    select: { startTime: true },
+    select: {
+      startTime: true,
+      tour: { select: { durationHours: true } },
+    },
   });
 
   // Get admin blocks
@@ -58,11 +61,12 @@ export async function getAvailableSlots(
     const slotStart = t;
     const slotEnd = t + durationMinutes;
 
-    // Count how many active bookings overlap with this slot (including buffer)
+    // Count how many active bookings overlap with this slot (using each booking's own duration)
     let concurrentCount = 0;
     for (const booking of bookings) {
       const bookedStart = timeToMinutes(booking.startTime);
-      const bookedEnd = bookedStart + durationMinutes + BUFFER_MINUTES;
+      const bookedDuration = Number(booking.tour.durationHours) * 60;
+      const bookedEnd = bookedStart + bookedDuration + BUFFER_MINUTES;
       if (slotStart < bookedEnd && slotEnd + BUFFER_MINUTES > bookedStart) {
         concurrentCount++;
       }
